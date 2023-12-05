@@ -11,7 +11,7 @@ def guess_game():
             continue    
         random_num =randint(1, 10)
         if user == random_num:
-            print("Your Guess was correct!", )
+            print("Your Guess was correct!")
             scores += 10
             
         else:
