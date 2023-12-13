@@ -1,27 +1,45 @@
 import random
 
-print("**********************************************")
-print("*            MONTY HALL GAME🎁🎁             *")
-print("**********************************************")
-user_name = input("Please enter your name:")
-print(f"Hello {user_name}! You are welcome to monty hall game.")
-
 
 def monty_hall():
+    print("**********************************************")
+    print("*            MONTY HALL GAME🎁🎁             *")
+    print("**********************************************")
+    while True:
+        try:
+            user_name = input("Please enter your name:")
+            if user_name.isalpha():
+                print(f"Hello {user_name}! You are welcome to monty hall game.")
+                break
+            else:
+                print("Please enter a valid username")
+
+        except ValueError:
+            print("Please enter a valid name")
+        continue
+
     doors = [1, 2, 3, 4]
     spare = doors.copy()
     car_door = random.choice(doors)
     _ = doors.pop(doors.index(car_door))
-    user_choice = int(input("Choose a door(1,2,3 or 4):"))
+    user_choice = None
+    while True:
+        try:
+            user_choice = int(input("Choose a door (1, 2, 3, or 4): "))
+            if user_choice in doors:
+                print(f"You have chosen door {user_choice}.")
+                break
+            else:
+                print("Please choose a door in this range (1, 2, 3, or 4).")
+        except ValueError:
+            print("Please enter an integer.")
+            continue
+
     goats = [door for door in doors if door != user_choice]
     monty_opens = random.choice(goats)
     remaining_for_user = [door for door in spare if door != user_choice and door != monty_opens]
     remaining_wrong_doors = [door for door in doors if door != car_door and door != monty_opens]
     monty_trick = random.choice(remaining_wrong_doors)
-    while user_choice not in doors:
-        print("Please enter a number {1,2,3 or 4}")
-        user_choice = int(input("Choose a door(1,2,3 or 4):"))
-    print(f"You have chosen door {user_choice}.")
     if user_choice in goats:
         print(f"Before we proceed, door {monty_trick} has a goat behind it. ")
     else:
